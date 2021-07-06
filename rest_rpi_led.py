@@ -1,62 +1,66 @@
 import json
 from flask import Flask, request, jsonify
+from gpiozero import LED
+
+BlueLED = LED(6)
+GreenLED = LED(7)
+RedLED = LED(8)
+led = Led()
+
+class Led():
+    def __init__(self):
+        self.color = "none"
+        self.status = "off"
+        BlueLED.off()
+        GreenLED.off()
+        RedLED.off()
+
+    def blue(self):
+        self.color = "blue"
+        self.status = "on"
+        BlueLED.on()
+        GreenLED.off()
+        RedLED.off()
+
+    def green(self):
+        self.color = "green"
+        self.status = "on"
+        BlueLED.off()
+        GreenLED.on()
+        RedLED.off()
+
+    def red(self):
+        self.color = "red"
+        self.status = "on"
+        BlueLED.off()
+        GreenLED.off()
+        RedLED.on()
+
+    def off(self):
+        self.color = "none"
+        self.status = "off"
+        BlueLED.off()
+        GreenLED.off()
+        RedLED.off()
+
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
-def query_records():
-    name = request.args.get('name')
-    print name
-    with open('/tmp/data.txt', 'r') as f:
-        data = f.read()
-        records = json.loads(data)
-        for record in records:
-            if record['name'] == name:
-                return jsonify(record)
-        return jsonify({'error': 'data not found'})
+def simple_test():
+    return jsonify({'status':'success'})
 
-@app.route('/', methods=['PUT'])
-def create_record():
-    record = json.loads(request.data)
-    with open('/tmp/data.txt', 'r') as f:
-        data = f.read()
-    if not data:
-        records = [record]
-    else:
-        records = json.loads(data)
-        records.append(record)
-    with open('/tmp/data.txt', 'w') as f:
-        f.write(json.dumps(records, indent=2))
-    return jsonify(record)
+@app.route('/led', methods=['GET'])
+def get_led_color():
+    return jsonify({'led': color})
 
-@app.route('/', methods=['POST'])
-def update_record():
-    record = json.loads(request.data)
-    new_records = []
-    with open('/tmp/data.txt', 'r') as f:
-        data = f.read()
-        records = json.loads(data)
-    for r in records:
-        if r['name'] == record['name']:
-            r['email'] = record['email']
-        new_records.append(r)
-    with open('/tmp/data.txt', 'w') as f:
-        f.write(json.dumps(new_records, indent=2))
+@app.route('/led', methods=['POST'])
+def update_led():
+    color = json.loads(request.data)
+
     return jsonify(record)
     
-@app.route('/', methods=['DELETE'])
-def delte_record():
-    record = json.loads(request.data)
-    new_records = []
-    with open('/tmp/data.txt', 'r') as f:
-        data = f.read()
-        records = json.loads(data)
-        for r in records:
-            if r['name'] == record['name']:
-                continue
-            new_records.append(r)
-    with open('/tmp/data.txt', 'w') as f:
-        f.write(json.dumps(new_records, indent=2))
-    return jsonify(record)
 
-app.run(debug=True)
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=5000, debug=True)
