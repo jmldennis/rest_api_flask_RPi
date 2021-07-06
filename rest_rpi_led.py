@@ -58,8 +58,9 @@ def get_led_color():
 @app.route('/led', methods=['POST'])
 def update_led():
     color = json.loads(request.data)
+    print(color)
 
-    return jsonify(record)
+    return jsonify("color":"new")
     
 
 
