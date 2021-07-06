@@ -2,10 +2,6 @@ import json
 from flask import Flask, request, jsonify
 from gpiozero import LED
 
-BlueLED = LED(6)
-GreenLED = LED(7)
-RedLED = LED(8)
-led = Led()
 
 class Led():
     def __init__(self):
@@ -43,6 +39,10 @@ class Led():
         GreenLED.off()
         RedLED.off()
 
+BlueLED = LED(6)
+GreenLED = LED(7)
+RedLED = LED(8)
+led = Led()
 
 app = Flask(__name__)
 
