@@ -60,7 +60,7 @@ def update_led():
     color = json.loads(request.data)
     print(color)
 
-    return jsonify("color":"new")
+    return jsonify({"color":"new"})
     
 
 
