@@ -53,7 +53,7 @@ def simple_test():
 
 @app.route('/led', methods=['GET'])
 def get_led_color():
-    return jsonify({'led': color})
+    return jsonify({'led': str(led.color)})
 
 @app.route('/led', methods=['POST'])
 def update_led():
