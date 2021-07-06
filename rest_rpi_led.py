@@ -1,6 +1,7 @@
 import json
 from flask import Flask, request, jsonify
 from gpiozero import LED
+from time import sleep
 
 
 class Led():
@@ -63,4 +64,11 @@ def update_led():
 
 
 if __name__ == '__main__':
+    led.blue()
+    sleep(1)
+    led.green()
+    sleep(1)
+    led.red()
+    sleep(1)
+    led.off()
     app.run(host="0.0.0.0", port=5000, debug=True)
