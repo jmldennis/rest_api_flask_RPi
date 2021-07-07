@@ -55,12 +55,10 @@ def simple_test():
 def get_led_color():
     return jsonify({'led': str(led.color)})
 
-@app.route('/led', methods=['POST'])
+@app.route('/led', methods=['PUT'])
 def update_led():
     data = request.get_json()
-    color = json.dumps(data)
-    print(json.dumps(data))
-
+    color = data.get("color")
     return jsonify({"color":color})
     
 
@@ -70,7 +68,7 @@ if __name__ == '__main__':
     sleep(1)
     led.green()
     sleep(1)
-    led.blue
+    led.blue()
     sleep(1)
     led.off()
     app.run(host="0.0.0.0", port=5000, debug=True)
