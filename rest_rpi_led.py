@@ -69,9 +69,9 @@ def update_led():
         elif color.lower() == "off":
             led.off()
         else:
-            return make_response(jsonify({"options":"'red', 'green', 'blue', 'off'"}),400)
+            return jsonify({"error":"Did not understand color.  Options are 'red', 'green', 'blue', 'off'"})
     except:
-        return make_response(jsonify({"error":"potentiallly bad json"}),400)
+        return jsonify({"error":"failed to parse JSON, check formatting"})
     
     return jsonify({"color":color.lower()})
     
