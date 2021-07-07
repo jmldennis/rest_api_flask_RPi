@@ -49,7 +49,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def simple_test():
-    return jsonify({'status':'success'})
+    return jsonify({'status':'successfully connected to LED Raspberry Pi'})
 
 @app.route('/led', methods=['GET'])
 def get_led_color():
@@ -69,9 +69,9 @@ def update_led():
         elif color.lower() == "off":
             led.off()
         else:
-            return jsonify({"options":"'red', 'green', 'blue', 'off'"})
+            return make_response(jsonify({"options":"'red', 'green', 'blue', 'off'"}),400)
     except:
-        return jsonify({"status":"failed to change LED color"})
+        return make_response(jsonify({"error":"potentiallly bad json"}),400)
     
     return jsonify({"color":color.lower()})
     
