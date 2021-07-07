@@ -64,9 +64,9 @@ def update_led():
             led.red()
         elif color.lower() == "green":
             led.green()
-        elif color.lower() == "blue"
+        elif color.lower() == "blue":
             led.blue()
-        elif color.lower() == "off"
+        elif color.lower() == "off":
             led.off()
         else:
             return jsonify({"options":"'red', 'green', 'blue', 'off'"})
