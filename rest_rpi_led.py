@@ -53,7 +53,7 @@ def simple_test():
 
 @app.route('/led', methods=['GET'])
 def get_led_color():
-    return jsonify({'led': str(led.color)})
+    return jsonify({'led': {'color':str(led.color),'status':str(led.status)}})
 
 @app.route('/led', methods=['PUT'])
 def update_led():
@@ -66,8 +66,10 @@ def update_led():
             led.green()
         elif color.lower() == "blue"
             led.blue()
+        elif color.lower() == "off"
+            led.off()
         else:
-            return jsonify({"options":"'red', 'green', 'blue'"})
+            return jsonify({"options":"'red', 'green', 'blue', 'off'"})
     except:
         return jsonify({"status":"failed to change LED color"})
     
